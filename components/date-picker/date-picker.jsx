@@ -68,6 +68,10 @@ const propTypes = {
 	 */
 	dateDisabled: PropTypes.func,
 	/**
+	 * Sets end date with a `Date` ECMAScript object. _Tested with snapshot testing._
+	 */
+	endDate: PropTypes.instanceOf(Date),
+	/**
 	 * Date formatting function that formats the `value` prop (`value` is an ECMAScript `Date()` object) before rendering the `input` value. Please use an external library such as [MomentJS](https://github.com/moment/moment/) for date formatting and internationalization. _Tested with snapshot testing._
 	 * The default `formatter` function is:
 	 * ```
@@ -175,6 +179,10 @@ const propTypes = {
 	 */
 	relativeYearTo: PropTypes.number,
 	/**
+	 * Sets start date with a `Date` ECMAScript object. _Tested with snapshot testing._
+	 */
+	startDate: PropTypes.instanceOf(Date),
+	/**
 	 * CSS classes to be added to tag with `slds-datepicker-trigger`. This is typically a wrapping `div` around the input. _Tested with snapshot testing._
 	 */
 	triggerClassName: PropTypes.oneOfType([
@@ -186,6 +194,10 @@ const propTypes = {
 	 * Sets date with a `Date` ECMAScript object. _Tested with snapshot testing._
 	 */
 	value: PropTypes.instanceOf(Date),
+	/**
+	 * Sets the variant of the datepicker
+	 */
+	variant: PropTypes.oneOf(['base', 'range']),
 };
 
 const defaultProps = {
@@ -239,6 +251,7 @@ const defaultProps = {
 	relativeYearFrom: -10,
 	relativeYearTo: 10,
 	dateDisabled: () => false,
+	variant: 'base',
 };
 
 /**
@@ -261,6 +274,8 @@ class Datepicker extends React.Component {
 		this.state = {
 			isOpen: false,
 			value: props.value,
+			startDate: props.startDate,
+			endDate: props.endDate,
 			formattedValue: initDate || '',
 			inputValue: initDate || '',
 		};
